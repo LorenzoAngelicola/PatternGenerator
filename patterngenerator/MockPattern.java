@@ -1,4 +1,4 @@
-package patterngenerator.mockpattern;
+package patterngenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,14 @@ import java.util.regex.Pattern;
  *  Each MockPattern is formed by MockRegexes that Mock a single Regular Expression in a basic form.
  *
  */
-public class MockPattern {
+class MockPattern {
     /**List of MockRegex that form the MockPattern*/
     private final List<MockRegex> regexes;
 
     /**
      * Default consturctor
      */
-    public MockPattern() {
+    protected MockPattern() {
         regexes = new ArrayList<>();
     }
 
@@ -24,7 +24,7 @@ public class MockPattern {
      *
      * @param item  String to represent in a MockPattern
      */
-    public MockPattern(String item) {
+    protected MockPattern(String item) {
         regexes = new ArrayList<>();
 
         //Seleziona il placeholder a cui appartiene il carattere della stringa e lo mette nel pattern

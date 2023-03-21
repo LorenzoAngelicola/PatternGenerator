@@ -1,7 +1,4 @@
 package patterngenerator;
-import patterngenerator.mockpattern.MockPattern;
-import patterngenerator.mockpattern.MockPatternCounter;
-import patterngenerator.mockpattern.MockRegex;
 
 import java.util.*;
 import java.util.regex.Pattern;

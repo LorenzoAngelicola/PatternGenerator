@@ -1,4 +1,4 @@
-package patterngenerator.mockpattern;
+package patterngenerator;
 
 /**
  * Java bean that Mocks a regular expression (RE) composed by a single character in a basic form.
@@ -8,7 +8,7 @@ package patterngenerator.mockpattern;
  *  -0 represents numbers;
  *  -Every other character is represented by itself.
  */
-public class MockRegex {
+class MockRegex {
 
     /** character representing the RE */
     private final char  regex;  //carattere identificativo per la regular expression
@@ -25,7 +25,7 @@ public class MockRegex {
      * @param min   Minimum number of characters for this RE
      * @param max   Maximum number of characters for this RE
      */
-    public MockRegex(char regex, int min, int max) {
+    protected MockRegex(char regex, int min, int max) {
         this.regex = regex;
         this.min = min;
         this.max = max;

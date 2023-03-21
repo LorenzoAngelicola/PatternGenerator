@@ -1,17 +1,17 @@
-package patterngenerator.mockpattern;
+package patterngenerator;
 
 import java.util.*;
 
 /**
  * Support class to count MockPattern and sort them by number of occurrences
  */
-public class MockPatternCounter {
+class MockPatternCounter {
     /**Container of MockPatterns and their counters*/
     private final Map<MockPattern, Integer> counter;
 
     /** Initialize the MockCounter
      */
-    public MockPatternCounter() {
+    protected MockPatternCounter() {
         counter = new HashMap<>();
     }
 
