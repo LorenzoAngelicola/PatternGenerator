@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 
 public class PatternGenerator {
-    private static final boolean debug = true;
+    private static final boolean debug = false;
     /**
      *
      * Returns a List of Pattern Regex which matches all the strings in a given list.
@@ -15,11 +15,9 @@ public class PatternGenerator {
      * @return List of Pattern regex which matches all strings.
      */
     public static List<Pattern> getPatterns(List<String> items)  {
-        long start = System.currentTimeMillis();
-
-        if(items == null || items.size() == 0) {
+        long start = System.currentTimeMillis(); //Timer for debug
+        if(items == null || items.size() == 0)
             return new ArrayList<>();
-        }
 
         MockPatternCounter mockPatternCounter = new MockPatternCounter();
         MockPattern found = null;
@@ -31,8 +29,6 @@ public class PatternGenerator {
                 String s = strings.last();
                 strings.remove(s);
                 mockPattern = new MockPattern(s);
-                //System.out.println(s + " generated " + mockPattern);
-                //System.out.println();
 
                 if (!mockPatternCounter.getEntriesKey().contains(mockPattern)) {
                     /*
@@ -52,11 +48,9 @@ public class PatternGenerator {
                         //Checks if the found MockPattern's MockRegexes have the same quantifiers
                         if (!mockPattern.equals(found)) {
 
-                            //System.out.println("I found " + found + " that has the same pattern as " + mockPattern + ".\nCombining their quantifiers.");
-
                             //Create a empty MockPattern
                             MockPattern combined = new MockPattern();
-                            //Confronts each MockRegex's quantifiers and reduces the quantifiers
+                            //Confronts each MockRegex's quantifiers and merges their quantifiers
                             for (int i = 0; i < mockPattern.getSize(); ++i) {
 
                                 MockRegex b1 = mockPattern.getRegex(i);
@@ -66,22 +60,22 @@ public class PatternGenerator {
                                 int max = Math.max(b1.getMax(), b2.getMax());
                                 combined.addRegex(b1.getRegex(), min, max);
                             }
-                            //System.out.println("combined: \n\t" + found + " and " + mockPattern + " in " + combined);
+
 
                             //replaces the found MockPattern if the new one has better quantifiers
-                            if (!found.equals(combined)) {
+                            if (!found.equals(combined))
                                 mockPatternCounter.replace(found, combined);
-                                //System.out.println("added " + combined);
-                            }
+                            //Adds the new one
                             mockPatternCounter.put(combined);
                         }
-                    } else {
+                    } else
+                        //If its not equal then its a new pattern
                         mockPatternCounter.put(mockPattern);
-                    }
-                } else {
+
+                } else
                     //Doesnt add mockPattern to the list but it just increments its counter
                     mockPatternCounter.put(mockPattern);
-                }
+
             }
 
             long t = System.currentTimeMillis() - start;
@@ -92,21 +86,16 @@ public class PatternGenerator {
             List<MockPattern> mockPatterns = mockPatternCounter.sort();
             List<Pattern> patterns = new ArrayList<>();
 
-            //Trasforma i MockPatterns in Pattern Regex
-            //toPrint.add("-MockPatterns -> PatternRegex\n");
-            //System.out.println("MockPatterns -> PatternRegex");
-
             //Transforms MockPatterns in Pattern Regex objects
             for (MockPattern pattern : mockPatterns) {
                 Pattern p = pattern.toPattern();
                 patterns.add(p);
-                //System.out.println(pattern.toString() + " -> " + p.pattern());
-                //toPrint.add("\t" + pattern.toString() + " -> " + p.pattern() + "\n");
             }
             if (debug) {
                 long time = System.currentTimeMillis();
                 checkPatterns(items, patterns);
                 time = System.currentTimeMillis() - time;
+                System.out.println("Time to check pattern correctness: " + (double) (System.currentTimeMillis() - time) / 1000 + " sec.");
                 System.out.println("Execution time: " + (double) (System.currentTimeMillis() - start) / 1000 + " sec.");
             }
             return patterns;

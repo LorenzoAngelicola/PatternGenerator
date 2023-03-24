@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Support class to count MockPattern and sort them by number of occurrences
+ * Useful only to debug and check correctness
  */
 class MockPatternCounter {
     /**Container of MockPatterns and their counters*/
@@ -28,7 +29,7 @@ class MockPatternCounter {
     /**
      * Adds the new MockPattern into the counter or increases the counter in case it was already added
      * or if the new MockPattern has the same structure but different quantifiers
-     * @param mockPattern
+     * @param mockPattern new pattern to add or to increment the counter
      */
     public void put(MockPattern mockPattern) {
         if (counter.containsKey(mockPattern)){
@@ -51,8 +52,8 @@ class MockPatternCounter {
 
     /**
      * Replaces the key for the entry with key oldMock with newMock or creates a new entry with newMock
-     * @param oldMock
-     * @param newMock
+     * @param oldMock pattern to replace
+     * @param newMock new pattern
      */
     public void replace(MockPattern oldMock, MockPattern newMock) {
         if (counter.containsKey(oldMock)) {
